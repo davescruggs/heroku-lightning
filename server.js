@@ -11,7 +11,7 @@ try {
 
 var app = express();
 
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 8000;
 var https_port = process.env.HTTPS_PORT || parseInt(port) + 1;
 
 app.set('view engine', 'ejs');
@@ -33,8 +33,9 @@ console.log("Server listening for HTTP connections on port ", port);
 // Create an HTTPS service if the certs are present
 try {
 	var options = {
-	  key: fs.readFileSync('key.pem'),
-	  cert: fs.readFileSync('key-cert.pem')
+	  key: fs.readFileSync('./key.pem'),
+	  cert: fs.readFileSync('./cert.pem'),
+	  passphrase: 'chocolate babies'
 	};
 	https.createServer(options, app).listen(https_port);
 	console.log("Server listening for HTTPS connections on port ", https_port);
